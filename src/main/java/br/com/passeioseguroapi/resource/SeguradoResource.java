@@ -32,6 +32,9 @@ public class SeguradoResource {
 			return Response.status(Response.Status.CREATED).entity("Segurado Cadastrado com sucesso.").build();
 		} catch (BadInfoException e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro interno no servidor").build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro interno no servidor").build();

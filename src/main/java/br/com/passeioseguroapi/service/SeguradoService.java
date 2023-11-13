@@ -22,9 +22,11 @@ public class SeguradoService {
 		String mensagem = validarRegistroSegurado(segurado);
 		if (mensagem != null) {
 			throw new BadInfoException(mensagem);
+		}else {
+			seguradoDao.inserirSegurado(segurado);
+			
 		}
-		seguradoDao.inserirSegurado(segurado);
-
+		
 	}
 
 	public Segurado buscarSegurado(String cpf) throws ClassNotFoundException, SQLException, BadInfoException {

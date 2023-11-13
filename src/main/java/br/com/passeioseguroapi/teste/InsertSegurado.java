@@ -1,6 +1,7 @@
 package br.com.passeioseguroapi.teste;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import br.com.passeioseguroapi.connectionfactory.*;
 import br.com.passeioseguroapi.dao.ModeloPreDefinidoDAO;
@@ -9,7 +10,7 @@ import br.com.passeioseguroapi.model.Segurado;
 
 public class InsertSegurado {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		Connection con = Conexao.abrirConexao();
 		
 		SeguradoDAO seguradoDao = new SeguradoDAO(con);
@@ -20,7 +21,7 @@ public class InsertSegurado {
 		
 		//System.out.println(segurado.registrarSegurado(segurado, seguradoDao));
 		
-		System.out.println(seguradoDao.inserirSegurado(segurado));
+		seguradoDao.inserirSegurado(segurado);
 		
 		Conexao.fecharConexao(con);
 

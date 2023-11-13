@@ -23,9 +23,8 @@ public class SeguradoDAO {
 		setCon(con);
 	}
 
-	public String inserirSegurado(Segurado segurado) {
+	public void inserirSegurado(Segurado segurado)throws SQLException {
 		
-		try {
 			String sql = "insert into segurado(cpf, nome, email, senha,  tel_segurado, end_segurado) values(?,?,?,?,?,?)";
 			PreparedStatement ps = getCon().prepareStatement(sql);
 			ps.setString(1, segurado.getCpf());
@@ -36,15 +35,10 @@ public class SeguradoDAO {
 			ps.setString(6, segurado.getEndereco());
 
 			if (ps.executeUpdate() > 0) {
-				return "Inserido com sucesso";
+				System.out.println("Inserido com sucesso");
 			} else {
-				return "Erro ao inserir";
+               System.out.println("Erro ao inserir");
 			}
-
-		} catch (SQLException e) {
-			return e.getMessage();
-		}
-
 	}
 	
 	public boolean isSeguradoJaCadastrado(String Cpf) {
