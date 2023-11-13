@@ -14,7 +14,7 @@ public class Bicicleta {
 	private double valorGps;
 	private double valorCicloComputador;
 	private double valorVelocimetroDigital;
-	private int idModeloPreDefinido;
+	private ModeloPreDefinido modeloPreDefinido;
 	
 	public Bicicleta() {
 		
@@ -22,7 +22,7 @@ public class Bicicleta {
 	
 	public Bicicleta(Segurado segurado, String marca, String modelo, String modalidade, int quantidadeRodas,
 			String estadoUso, int anoCompra, String numeroNotaFiscal, double valorDeMercado, String numeroSerie,
-			double valorGps, double valorCicloComputador, double valorVelocimetroDigital,int idModeloPreDefinido) {
+			double valorGps, double valorCicloComputador, double valorVelocimetroDigital,ModeloPreDefinido modeloPreDefinido) {
 		setSegurado(segurado); 
 		setMarca(marca);
 		setModelo(modelo);
@@ -36,7 +36,7 @@ public class Bicicleta {
 		setValorGps(valorGps);
 		setValorCicloComputador(valorCicloComputador);
 		setValorVelocimetroDigital(valorVelocimetroDigital);
-		setIdModeloPreDefinido(idModeloPreDefinido);
+		setModeloPreDefinido(modeloPreDefinido);
 	}
 	
 	public Bicicleta(Segurado segurado, String marca, String modelo, String modalidade, int quantidadeRodas,
@@ -52,15 +52,17 @@ public class Bicicleta {
 		setNumeroNotaFiscal(numeroNotaFiscal);
 		setValorDeMercado(valorDeMercado);
 		setNumeroSerie(numeroSerie);
-		setIdModeloPreDefinido(idModeloPreDefinido);
+		setModeloPreDefinido(modeloPreDefinido);
+		
 	}
 
-	public int getIdModeloPreDefinido() {
-		return idModeloPreDefinido;
+
+	public ModeloPreDefinido getModeloPreDefinido() {
+		return modeloPreDefinido;
 	}
 
-	public void setIdModeloPreDefinido(int idModeloPreDefinido) {
-		this.idModeloPreDefinido = idModeloPreDefinido;
+	public void setModeloPreDefinido(ModeloPreDefinido modeloPreDefinido) {
+		this.modeloPreDefinido = modeloPreDefinido;
 	}
 
 	public Segurado getSegurado() {

@@ -19,10 +19,10 @@ public class BicicletaEletrica extends Bicicleta {
 			int quantidadeRodas, String estadoUso, int anoCompra, String numeroNotaFiscal, double valorDeMercado,
 			String numeroSerie, double valorGps, double valorCicloComputador, double valorVelocimetroDigital,
 			String marcaMotor, int potenciaMotor, double valorMotor, String marcaBateria, int potenciaBateria,
-			double valorBateria, int idModeloPreDefinido) {
+			double valorBateria, ModeloPreDefinido modeloPreDefinido) {
 		super(segurado, marca, modelo, modalidade, quantidadeRodas, estadoUso, anoCompra, numeroNotaFiscal,
 				valorDeMercado, numeroSerie, valorGps, valorCicloComputador, valorVelocimetroDigital,
-				idModeloPreDefinido);
+				modeloPreDefinido);
 		setIdBicicletaEletrica(idBicicletaEletrica);
 		setMarcaMotor(marcaMotor);
 		setPotenciaMotor(potenciaMotor);
@@ -144,17 +144,17 @@ public class BicicletaEletrica extends Bicicleta {
 		} else if (bicicleta.getEstadoUso() == null || bicicleta.getEstadoUso().isEmpty()) {
 			return "Telefone é obrigatório";
 		} else if (bicicleta.getAnoCompra() == 0) {
-			return "Endereço é obrigatório";
+			return "Ano de compra é obrigatório";
 		} else if (bicicleta.getValorDeMercado() == 0) {
-			return "Endereço é obrigatório";
+			return "Valor de mercado é obrigatório";
 		} else if (bicicleta.getNumeroNotaFiscal() == null || bicicleta.getNumeroNotaFiscal().isEmpty()) {
-			return "Endereço é obrigatório";
+			return "número da nota fiscal é obrigatório";
 		} else if (bicicleta.getNumeroSerie() == null || bicicleta.getNumeroSerie().isEmpty()) {
-			return "Endereço é obrigatório";
+			return "número de série é obrigatório";
 		} else if (bicicleta.getAnoCompra() == 0) {
-			return "Endereço é obrigatório";
-		} else if (bicicleta.getIdModeloPreDefinido() == 0) {
-			return "Endereço é obrigatório";
+			return "ano da compra é obrigatório";
+		} else if (bicicleta.getModeloPreDefinido().getIdModelo() == 0) {
+			return "id do modelo pré definido é obrigatório";
 		}
 
 		return null;

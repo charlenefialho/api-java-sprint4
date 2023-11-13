@@ -47,7 +47,7 @@ public class BicicletaEletricaDAO {
 			ps.setDouble(8, bicicleta.getValorDeMercado());
 			ps.setString(9, bicicleta.getNumeroNotaFiscal());
 			ps.setString(10, bicicleta.getSegurado().getCpf());
-			ps.setInt(11, bicicleta.getIdModeloPreDefinido());
+			ps.setInt(11, bicicleta.getModeloPreDefinido().getIdModelo());
 			ps.setDouble(12, bicicleta.getValorGps());
 			ps.setDouble(13, bicicleta.getValorCicloComputador());
 			ps.setDouble(14, bicicleta.getValorVelocimetroDigital());

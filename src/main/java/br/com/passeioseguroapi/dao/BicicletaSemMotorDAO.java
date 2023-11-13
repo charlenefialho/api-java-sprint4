@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import br.com.passeioseguroapi.model.BicicletaSemMotor;
-import br.com.passeioseguroapi.model.Segurado;
+import br.com.passeioseguroapi.model.ModeloPreDefinido;
 
 public class BicicletaSemMotorDAO {
 	private Connection con;
@@ -46,7 +46,7 @@ public class BicicletaSemMotorDAO {
 			ps.setDouble(8, bicicleta.getValorDeMercado());
 			ps.setString(9, bicicleta.getNumeroNotaFiscal());
 			ps.setString(10, bicicleta.getSegurado().getCpf());
-			ps.setInt(11, bicicleta.getIdModeloPreDefinido());
+			ps.setInt(11, bicicleta.getModeloPreDefinido().getIdModelo());
 			ps.setDouble(12, bicicleta.getValorGps());
 			ps.setDouble(13, bicicleta.getValorCicloComputador());
 			ps.setDouble(14, bicicleta.getValorVelocimetroDigital());
@@ -82,7 +82,7 @@ public class BicicletaSemMotorDAO {
 				ps.setDouble(8, bicicleta.getValorDeMercado());
 				ps.setString(9, bicicleta.getNumeroNotaFiscal());
 				ps.setString(10, bicicleta.getSegurado().getCpf());
-				ps.setInt(11, bicicleta.getIdModeloPreDefinido());
+				ps.setInt(11, bicicleta.getModeloPreDefinido().getIdModelo());
 				ps.setDouble(12, bicicleta.getValorGps());
 				ps.setDouble(13, bicicleta.getValorCicloComputador());
 				ps.setDouble(14, bicicleta.getValorVelocimetroDigital());
@@ -123,7 +123,15 @@ public class BicicletaSemMotorDAO {
 				bicicleta.setValorGps(rs.getDouble("vlr_gps"));
 				bicicleta.setValorCicloComputador(rs.getDouble("vlr_ciclo_computador"));
 				bicicleta.setValorVelocimetroDigital(rs.getDouble("vlr_velocimetro_digital"));
-				bicicleta.setIdModeloPreDefinido(rs.getInt("model_pre_def_id_modelo"));
+				
+				int codigoModeloPreDefinido = rs.getInt("model_pre_def_id_modelo");
+			
+				if (codigoModeloPreDefinido != 0) {
+					ModeloPreDefinido modeloPreDefinido = new ModeloPreDefinido();
+					modeloPreDefinido.setIdModelo(codigoModeloPreDefinido);
+					bicicleta.setModeloPreDefinido(modeloPreDefinido);
+				}
+				
 				return bicicleta;
 			}
 		} catch (SQLException e) {
