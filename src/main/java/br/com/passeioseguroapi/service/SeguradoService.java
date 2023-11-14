@@ -58,21 +58,6 @@ public class SeguradoService {
 
 	private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
 
-	private static Segurado InserirValoresPadrao(Segurado segurado, Segurado seguradoInfos) {
-		if (segurado.getNome() == null || segurado.getNome().isEmpty()) {
-			segurado.setNome(seguradoInfos.getNome());
-		} else if (segurado.getEmail() == null || segurado.getEmail().isEmpty()) {
-			segurado.setEmail(seguradoInfos.getEmail());
-		} else if (segurado.getSenha() == null || segurado.getSenha().isEmpty()) {
-			segurado.setSenha(seguradoInfos.getSenha());
-		} else if (segurado.getTelefone() == null || segurado.getTelefone().isEmpty()) {
-			segurado.setTelefone(seguradoInfos.getTelefone());
-		} else if (segurado.getEndereco() == null || segurado.getEndereco().isEmpty()) {
-			segurado.setEndereco(seguradoInfos.getEndereco());
-		}
-
-		return segurado;
-	}
 
 	private static String validarCamposObrigatoriosSegurado(Segurado segurado) {
 		if (segurado.getCpf() == null || segurado.getCpf().isEmpty()) {

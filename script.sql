@@ -53,8 +53,8 @@ CREATE TABLE bicicleta (
 -- Criando a tabela 'segurado' com suas colunas 
 CREATE TABLE segurado (
     cpf         char(11) CONSTRAINT segurado_pk PRIMARY KEY, 
-    nome        VARCHAR2(20 BYTE) NOT NULL,
-    email       VARCHAR2(20 BYTE) NOT NULL,
+    nome        VARCHAR2(50 BYTE) NOT NULL,
+    email       VARCHAR2(50 BYTE) NOT NULL,
     senha       VARCHAR2(15 BYTE) NOT NULL,
     id_segurado number(5) DEFAULT seq_id_segurado.NEXTVAL NOT NULL,
     tel_segurado VARCHAR2(13 BYTE) NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE midia (
     tipo_midia           VARCHAR2(1 BYTE),
     img_bike             BLOB,
     data_midia           DATE,
-    descricao            VARCHAR2(20 BYTE),
+    descricao            VARCHAR2(60 BYTE),
     vistoria_id_vistoria NUMBER(5) NOT NULL
 );
 
@@ -129,5 +129,4 @@ ALTER TABLE vistoria
 -- Remova a coluna 'model_pre_def_id_modelo' da tabela 'vistoria'
 ALTER TABLE vistoria
     DROP COLUMN model_pre_def_id_modelo;
-    
-    
+

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import br.com.passeioseguroapi.exception.BadInfoException;
 import br.com.passeioseguroapi.model.BicicletaSemMotor;
 import br.com.passeioseguroapi.model.ModeloPreDefinido;
 
@@ -25,15 +26,48 @@ public class BicicletaSemMotorDAO {
 	}
 
 	// Método inserir bicicleta sem motor
-	public String inserirBicicleta(BicicletaSemMotor bicicleta) {
+	public String inserirBicicleta(BicicletaSemMotor bicicleta) throws SQLException, BadInfoException {
 		if (isBicicletaExiste(bicicleta.getIdBicicletaSemMotor())) {
-			return "Essa bicicleta Já foi cadastrada.";
+			throw new BadInfoException("Essa bicicleta Já foi cadastrada.");
 		}
 
 		String sql = "insert into bicicleta(" + "id_bicicleta," + "marca_bike," + "modelo_bike," + "modalidade_bike,"
 				+ "quantidade_rodas," + "estado_uso," + "ano_compra," + "valor_mercado," + "nota_fiscal," + "seg_cpf,"
 				+ "model_pre_def_id_modelo," + "vlr_gps," + "vlr_ciclo_computador," + "vlr_velocimetro_digital,"
 				+ "nmr_serie) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		PreparedStatement ps = getCon().prepareStatement(sql);
+		ps.setInt(1, bicicleta.getIdBicicletaSemMotor());
+		ps.setString(2, bicicleta.getMarca());
+		ps.setString(3, bicicleta.getModelo());
+		ps.setString(4, bicicleta.getModalidade());
+		ps.setInt(5, bicicleta.getQuantidadeRodas());
+		ps.setString(6, bicicleta.getEstadoUso());
+		ps.setInt(7, bicicleta.getAnoCompra());
+		ps.setDouble(8, bicicleta.getValorDeMercado());
+		ps.setString(9, bicicleta.getNumeroNotaFiscal());
+		ps.setString(10, bicicleta.getSegurado().getCpf());
+		ps.setInt(11, bicicleta.getModeloPreDefinido().getIdModelo());
+		ps.setDouble(12, bicicleta.getValorGps());
+		ps.setDouble(13, bicicleta.getValorCicloComputador());
+		ps.setDouble(14, bicicleta.getValorVelocimetroDigital());
+		ps.setString(15, bicicleta.getNumeroSerie());
+
+		if (ps.executeUpdate() > 0) {
+			return "Inserido com sucesso";
+		} else {
+			return "Erro ao inserir";
+		}
+
+	}
+
+	// Método modificar bicicleta sem motor
+	public String modificarBicicleta(BicicletaSemMotor bicicleta) {
+
+		String sql = "update segurado set id_bicicleta = (?), marca_bike = (?), modelo_bike = (?), modalidade_bike = (?),"
+				+ "quantidade_rodas = (?), estado_uso = (?), ano_compra = (?), valor_mercado = (?), nota_fiscal = (?), seg_cpf = (?),"
+				+ "model_pre_def_id_modelo = (?), vlr_gps = (?), vlr_ciclo_computador = (?), vlr_velocimetro_digital = (?),"
+				+ "nmr_serie = (?)";
 		try {
 			PreparedStatement ps = getCon().prepareStatement(sql);
 			ps.setInt(1, bicicleta.getIdBicicletaSemMotor());
@@ -62,44 +96,8 @@ public class BicicletaSemMotorDAO {
 		}
 
 	}
-	
-	// Método modificar bicicleta sem motor
-		public String modificarBicicleta(BicicletaSemMotor bicicleta) {
 
-			String sql = "update segurado set id_bicicleta = (?), marca_bike = (?), modelo_bike = (?), modalidade_bike = (?)," +
-					"quantidade_rodas = (?), estado_uso = (?), ano_compra = (?), valor_mercado = (?), nota_fiscal = (?), seg_cpf = (?)," +
-					 "model_pre_def_id_modelo = (?), vlr_gps = (?), vlr_ciclo_computador = (?), vlr_velocimetro_digital = (?),"+
-					 "nmr_serie = (?)";
-			try {
-				PreparedStatement ps = getCon().prepareStatement(sql);
-				ps.setInt(1, bicicleta.getIdBicicletaSemMotor());
-				ps.setString(2, bicicleta.getMarca());
-				ps.setString(3, bicicleta.getModelo());
-				ps.setString(4, bicicleta.getModalidade());
-				ps.setInt(5, bicicleta.getQuantidadeRodas());
-				ps.setString(6, bicicleta.getEstadoUso());
-				ps.setInt(7, bicicleta.getAnoCompra());
-				ps.setDouble(8, bicicleta.getValorDeMercado());
-				ps.setString(9, bicicleta.getNumeroNotaFiscal());
-				ps.setString(10, bicicleta.getSegurado().getCpf());
-				ps.setInt(11, bicicleta.getModeloPreDefinido().getIdModelo());
-				ps.setDouble(12, bicicleta.getValorGps());
-				ps.setDouble(13, bicicleta.getValorCicloComputador());
-				ps.setDouble(14, bicicleta.getValorVelocimetroDigital());
-				ps.setString(15, bicicleta.getNumeroSerie());
-
-				if (ps.executeUpdate() > 0) {
-					return "Inserido com sucesso";
-				} else {
-					return "Erro ao inserir";
-				}
-			} catch (SQLException e) {
-				return e.getMessage();
-			}
-
-		}
-	
-	//Método de buscar uma bicicleta
+	// Método de buscar uma bicicleta
 	public BicicletaSemMotor buscarBicicleta(int idBicicleta) {
 		String sql = "SELECT id_bicicleta FROM bicicleta WHERE id_bicicleta = ?";
 
@@ -119,19 +117,19 @@ public class BicicletaSemMotorDAO {
 				bicicleta.setAnoCompra(rs.getInt("ano_compra"));
 				bicicleta.setValorDeMercado(rs.getDouble("valor_mercado"));
 				bicicleta.setNumeroNotaFiscal(rs.getString("nota_fiscal"));
-				bicicleta.setNumeroSerie(rs.getString("nmr_serie")); 
+				bicicleta.setNumeroSerie(rs.getString("nmr_serie"));
 				bicicleta.setValorGps(rs.getDouble("vlr_gps"));
 				bicicleta.setValorCicloComputador(rs.getDouble("vlr_ciclo_computador"));
 				bicicleta.setValorVelocimetroDigital(rs.getDouble("vlr_velocimetro_digital"));
-				
+
 				int codigoModeloPreDefinido = rs.getInt("model_pre_def_id_modelo");
-			
+
 				if (codigoModeloPreDefinido != 0) {
 					ModeloPreDefinido modeloPreDefinido = new ModeloPreDefinido();
 					modeloPreDefinido.setIdModelo(codigoModeloPreDefinido);
 					bicicleta.setModeloPreDefinido(modeloPreDefinido);
 				}
-				
+
 				return bicicleta;
 			}
 		} catch (SQLException e) {
@@ -139,10 +137,9 @@ public class BicicletaSemMotorDAO {
 		}
 		return null;
 	}
-	
 
 	// método deletar com where
-	public String deletarBicicleta(BicicletaSemMotor bicicleta){
+	public String deletarBicicleta(BicicletaSemMotor bicicleta) {
 		String sql = "delete from bicicleta b where b.id_bicicleta = (?)";
 		try {
 			PreparedStatement ps = getCon().prepareStatement(sql);

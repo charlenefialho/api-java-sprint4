@@ -42,19 +42,6 @@ public class BicicletaSemMotor extends Bicicleta {
 		return valorTotal;
 	}
 
-	public String registrarBicicleta(BicicletaSemMotor bicicleta, BicicletaSemMotorDAO bicicletaDao) {
-		try {
-			String mensagem = validarRegistroBicicleta(bicicleta);
-			if (mensagem == null) {
-				return bicicletaDao.inserirBicicleta(bicicleta);
-			} else {
-				throw new Exception(mensagem);
-			}
-		} catch (Exception e) {
-			return e.getMessage();
-		}
-	}
-
 	public String atualizarBicicletaSemMotor(BicicletaSemMotor bicicleta, BicicletaSemMotorDAO bicicletaDao) {
 		try {
 			BicicletaSemMotor bicicletaInfos = bicicletaDao.buscarBicicleta(bicicleta.getIdBicicletaSemMotor());
