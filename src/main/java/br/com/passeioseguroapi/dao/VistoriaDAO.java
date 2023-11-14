@@ -26,35 +26,29 @@ public class VistoriaDAO {
 		setCon(con);
 	}
 
-	public String inserirVistoria(Vistoria vistoria) {
-		try {
-			java.sql.Timestamp sqlDate = new java.sql.Timestamp(vistoria.getDataVistoria().getTime());
-			String sql = "insert into vistoria(id_vistoria, data_hora_vistoria, status_vistoria,seg_cpf,bicicleta_id_bicicleta) values(?,?,?,?,?)";
-			PreparedStatement ps = getCon().prepareStatement(sql);
-			ps.setInt(1, vistoria.getCodVistoria());
-			ps.setTimestamp(2, sqlDate );
-			ps.setString(3, vistoria.getStatus());
-			ps.setString(4, vistoria.getCpfSegurado());
-			ps.setInt(5, vistoria.getIdBicicleta());
+	public String inserirVistoria(Vistoria vistoria) throws SQLException {
+		java.sql.Timestamp sqlDate = new java.sql.Timestamp(vistoria.getDataVistoria().getTime());
+		String sql = "insert into vistoria(id_vistoria, data_hora_vistoria, status_vistoria,seg_cpf,bicicleta_id_bicicleta) values(?,?,?,?,?)";
+		PreparedStatement ps = getCon().prepareStatement(sql);
+		ps.setInt(1, vistoria.getCodVistoria());
+		ps.setTimestamp(2, sqlDate);
+		ps.setString(3, vistoria.getStatus());
+		ps.setString(4, vistoria.getCpfSegurado());
+		ps.setInt(5, vistoria.getIdBicicleta());
 
-			if (ps.executeUpdate() > 0) {
-				return "Inserido com sucesso";
-			} else {
-				return "Erro ao inserir";
-			}
-
-		} catch (SQLException e) {
-			return e.getMessage();
+		if (ps.executeUpdate() > 0) {
+			return "Inserido com sucesso";
+		} else {
+			return "Erro ao inserir";
 		}
-
 	}
 
-	public List<HistoricoVistoria> buscarVistorias(Segurado segurado) {
+	public List<HistoricoVistoria> buscarVistorias(String cpf) {
 		String sql = "SELECT * FROM vistoria where seg_cpf = ?";
 		List<HistoricoVistoria> listaVistorias = new ArrayList<HistoricoVistoria>();
 		try {
 			PreparedStatement ps = getCon().prepareStatement(sql);
-			ps.setString(1, segurado.getCpf());
+			ps.setString(1, cpf);
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -69,7 +63,6 @@ public class VistoriaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 
 		return listaVistorias;
 	}

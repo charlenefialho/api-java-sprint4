@@ -63,13 +63,5 @@ public class Vistoria {
 		this.idBicicleta = idBicicleta;
 	}
 
-	public String registrarVistoria(Vistoria vistoria, VistoriaDAO vistoriaDao) {
-		try {
-			String mensagem = vistoriaDao.inserirVistoria(vistoria);
-			return mensagem;
-		} catch (Exception e) {
-			return e.getMessage();
-		}
-	}
 
 }
