@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.com.passeioseguroapi.exception.BadInfoException;
+import br.com.passeioseguroapi.exception.*;
 import br.com.passeioseguroapi.model.BicicletaEletrica;
 
 public class BicicletaEletricaDAO {

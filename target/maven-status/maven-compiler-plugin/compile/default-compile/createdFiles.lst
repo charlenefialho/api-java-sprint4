@@ -23,4 +23,5 @@ br\com\passeioseguroapi\model\Bicicleta.class
 br\com\passeioseguroapi\service\ModeloPreDefinidoService.class
 br\com\passeioseguroapi\service\VistoriaService.class
 br\com\passeioseguroapi\resource\SeguradoResource.class
+br\com\passeioseguroapi\util\JwtManager.class
 br\com\passeioseguroapi\model\MidiaVistoria.class

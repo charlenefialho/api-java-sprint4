@@ -5,10 +5,11 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.com.passeioseguroapi.exception.BadInfoException;
-import br.com.passeioseguroapi.model.Segurado;
 import br.com.passeioseguroapi.connectionfactory.ConnectionFactory;
 import br.com.passeioseguroapi.dao.SeguradoDAO;
+import br.com.passeioseguroapi.exception.BadInfoException;
+import br.com.passeioseguroapi.model.Segurado;
+import br.com.passeioseguroapi.util.JwtManager;
 
 public class SeguradoService {
 	private SeguradoDAO seguradoDao;
@@ -18,15 +19,25 @@ public class SeguradoService {
 		seguradoDao = new SeguradoDAO(con);
 	}
 
-	public void cadastrarSegurado(Segurado segurado) throws BadInfoException, ClassNotFoundException, SQLException  {
+	public void cadastrarSegurado(Segurado segurado) throws BadInfoException, ClassNotFoundException, SQLException {
 		String mensagem = validarRegistroSegurado(segurado);
 		if (mensagem != null) {
 			throw new BadInfoException(mensagem);
-		}else {
+		} else {
 			seguradoDao.inserirSegurado(segurado);
-			
+
 		}
-		
+
+	}
+
+	public String autenticarSegurado(String cpf, String senha)
+			throws BadInfoException, ClassNotFoundException, SQLException {
+		Segurado segurado = seguradoDao.buscarSegurado(cpf);
+		if (segurado != null && senha.equals(segurado.getSenha())) {
+			return JwtManager.generateToken(cpf);
+		} else {
+			throw new BadInfoException("Senha e/ou CPF inválidos.");
+		}
 	}
 
 	public Segurado buscarSegurado(String cpf) throws ClassNotFoundException, SQLException, BadInfoException {
@@ -57,7 +68,6 @@ public class SeguradoService {
 	}
 
 	private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-
 
 	private static String validarCamposObrigatoriosSegurado(Segurado segurado) {
 		if (segurado.getCpf() == null || segurado.getCpf().isEmpty()) {

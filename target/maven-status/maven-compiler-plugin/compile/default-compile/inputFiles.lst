@@ -10,6 +10,7 @@ C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\
 C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\dao\VistoriaDAO.java
 C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\service\SeguradoService.java
 C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\model\BicicletaSemMotor.java
+C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\util\JwtManager.java
 C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\dao\BicicletaEletricaDAO.java
 C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\exception\BadInfoException.java
 C:\Users\fialh\challenge\PasseioSeguroapi\src\main\java\br\com\passeioseguroapi\model\Vistoria.java
